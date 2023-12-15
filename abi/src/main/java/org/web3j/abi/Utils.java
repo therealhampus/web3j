@@ -205,8 +205,8 @@ public class Utils {
 
         return (Class<T>)
                 Class.forName(
-                        ((ParameterizedType) typeArgument)
-                                .getActualTypeArguments()[0].getTypeName());
+                        getTypeName(
+                                ((ParameterizedType) typeArgument).getActualTypeArguments()[0]));
     }
 
     @SuppressWarnings("unchecked")
@@ -301,11 +301,10 @@ public class Utils {
 
     /** Ports {@link java.lang.reflect.Type#getTypeName()}. */
     public static String getTypeName(java.lang.reflect.Type type) {
-        try {
-            return type.getTypeName();
-        } catch (NoSuchMethodError e) {
+        if (type instanceof Class) {
             return getClassName((Class) type);
         }
+        return type.toString();
     }
 
     /** Support java version < 8 Copied from {@link Class#getTypeName()}. */
