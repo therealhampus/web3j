@@ -209,5 +209,47 @@ public class Bloom {
         return new BloomValues(new byte[] {v1, v2, v3}, new int[] {i1, i2, i3});
     }
 
-    private record BloomValues(byte[] value, int[] index) {}
+    private static final class BloomValues {
+        private final byte[] value;
+        private final int[] index;
+
+        public BloomValues(byte[] value, int[] index) {
+            this.value = value;
+            this.index = index;
+        }
+
+        byte[] value() {
+            return this.value;
+        }
+
+        int[] index() {
+            return this.index;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            BloomValues bloomValues = (BloomValues) obj;
+            return Arrays.equals(value, bloomValues.value)
+                    && Arrays.equals(index, bloomValues.index);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Arrays.hashCode(value);
+            result = 31 * result + Arrays.hashCode(index);
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "BloomValuess{"
+                    + "value="
+                    + Arrays.toString(value)
+                    + ", index="
+                    + Arrays.toString(index)
+                    + '}';
+        }
+    }
 }
