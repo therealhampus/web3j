@@ -12,6 +12,8 @@
  */
 package org.web3j.compat;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Provides compatibility methods to substitute those methods from Java SDK that are not supported
  * on Android.
@@ -32,5 +34,10 @@ public final class Compat {
             sb.append(elements[i]);
         }
         return sb.toString();
+    }
+
+    /** Ports {@link Constructor#getParameterCount()} */
+    public static int getParameterCount(Constructor<?> constructor) {
+        return constructor.getParameterTypes().length;
     }
 }

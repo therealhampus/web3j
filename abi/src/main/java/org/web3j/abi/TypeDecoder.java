@@ -49,6 +49,7 @@ import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint160;
 import org.web3j.abi.datatypes.primitive.Double;
 import org.web3j.abi.datatypes.primitive.Float;
+import org.web3j.compat.Compat;
 import org.web3j.utils.Numeric;
 
 import static org.web3j.abi.DefaultFunctionReturnDecoder.getDataOffset;
@@ -374,7 +375,7 @@ public class TypeDecoder {
         try {
             Class<T> classType = typeReference.getClassType();
             Constructor<?> constructor = findStructConstructor(classType);
-            final int length = constructor.getParameterCount();
+            final int length = Compat.getParameterCount(constructor);
             List<T> elements = new ArrayList<>(length);
 
             for (int i = 0, currOffset = offset; i < length; i++) {
@@ -467,7 +468,7 @@ public class TypeDecoder {
         try {
             final Class<T> classType = typeReference.getClassType();
             Constructor<?> constructor = findStructConstructor(classType);
-            final int length = constructor.getParameterCount();
+            final int length = Compat.getParameterCount(constructor);
             final Map<Integer, T> parameters = new HashMap<>();
             int staticOffset = 0;
             final List<Integer> parameterOffsets = new ArrayList<>();
