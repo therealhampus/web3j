@@ -13,6 +13,8 @@
 package org.web3j.compat;
 
 import java.lang.reflect.Constructor;
+import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Provides compatibility methods to substitute those methods from Java SDK that are not supported
@@ -34,6 +36,19 @@ public final class Compat {
             sb.append(elements[i]);
         }
         return sb.toString();
+    }
+
+    /** Ports {@link String#join(CharSequence, Iterable)}. */
+    public static <T extends CharSequence> String join(
+            CharSequence delimiter, Iterable<T> elements) {
+        Objects.requireNonNull(delimiter);
+        Objects.requireNonNull(elements);
+
+        final StringJoiner sj = new StringJoiner(delimiter);
+        for (T elem : elements) {
+            sj.add(elem);
+        }
+        return sj.toString();
     }
 
     /** Ports {@link Constructor#getParameterCount()} */

@@ -36,6 +36,7 @@ import org.web3j.abi.datatypes.Ufixed;
 import org.web3j.abi.datatypes.Uint;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.primitive.PrimitiveType;
+import org.web3j.compat.Compat;
 import org.web3j.utils.Numeric;
 
 import static org.web3j.abi.datatypes.Type.MAX_BIT_LENGTH;
@@ -295,7 +296,7 @@ public class TypeEncoder {
         final List<String> data = new ArrayList<>();
         data.addAll(offsetsAndStaticValues);
         data.addAll(dynamicValues);
-        return String.join("", data);
+        return Compat.join("", data);
     }
 
     static <T extends Type> String encodeDynamicArray(DynamicArray<T> value) {
