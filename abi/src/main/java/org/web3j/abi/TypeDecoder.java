@@ -384,12 +384,9 @@ public class TypeDecoder {
 
                 if (StaticStruct.class.isAssignableFrom(declaredField)) {
                     final int nestedStructLength =
-                            classType
-                                            .getDeclaredFields()[i]
-                                            .getType()
-                                            .getConstructors()[0]
-                                            .getParameters()
-                                            .length
+                            Compat.getParameterCount(
+                                            classType.getDeclaredFields()[i].getType()
+                                                    .getConstructors()[0])
                                     * 64;
                     value =
                             decodeStaticStruct(
