@@ -13,12 +13,13 @@
 package org.web3j.crypto;
 
 import java.math.BigInteger;
-import java.util.Base64;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
+
+import org.web3j.compat.Base64Compat;
 
 /**
  * This class consists in java representation of JWK file. It uses Builder pattern in order to
@@ -144,7 +145,7 @@ public final class Secp256k1JWK {
         }
 
         private String encodeEcToBase64(byte[] bytes) {
-            String paddedEncoding = Base64.getEncoder().encodeToString(bytes);
+            String paddedEncoding = Base64Compat.encodeToString(bytes, Base64Compat.NO_WRAP);
 
             // Format to standard
             paddedEncoding = paddedEncoding.replaceAll("[+]", "-").replaceAll("[/]", "_");
