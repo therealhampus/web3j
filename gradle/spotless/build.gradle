@@ -21,6 +21,7 @@ spotless {
         // This path needs to be relative to each project
         target fileTree('.') {
             include '**/src/*/java/**/*.java'
+            exclude '**/src/*/java/**/Base64Compat.java'
             exclude '**/.gradle/**'
             exclude '**/generated/**'
             exclude '**/build/install/**'
