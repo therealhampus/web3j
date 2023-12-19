@@ -6,6 +6,7 @@ description 'EEA JSON-RPC API'
 
 dependencies {
     api project(':core')
+    implementation(project(":compat"))
     testImplementation project(path: ':core', configuration: 'testArtifacts')
 }
 

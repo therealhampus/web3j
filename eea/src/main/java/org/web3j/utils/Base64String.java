@@ -14,7 +14,6 @@ package org.web3j.utils;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import org.web3j.compat.Base64Compat;
 import org.web3j.rlp.RlpList;
 import org.web3j.rlp.RlpString;
 
@@ -51,9 +51,6 @@ public class Base64String {
         }
     }
 
-    private static final Base64.Decoder DECODER = Base64.getDecoder();
-    private static final Base64.Encoder ENCODER = Base64.getEncoder();
-
     private final byte[] enclaveB64Value;
 
     public static Base64String wrap(final String base64String) {
@@ -61,7 +58,7 @@ public class Base64String {
     }
 
     public static Base64String wrap(final byte[] base64Array) {
-        return new Base64String(ENCODER.encodeToString(base64Array));
+        return new Base64String(Base64Compat.encodeToString(base64Array, Base64Compat.NO_WRAP));
     }
 
     public static List<Base64String> wrapList(final List<String> base64Strings) {
@@ -85,11 +82,11 @@ public class Base64String {
         if (!isValid(base64String)) {
             throw new IllegalArgumentException(base64String + " is not a valid base 64 value");
         }
-        this.enclaveB64Value = DECODER.decode(base64String);
+        this.enclaveB64Value = Base64Compat.decode(base64String, Base64Compat.NO_WRAP);
     }
 
     public String toString() {
-        return ENCODER.encodeToString(enclaveB64Value);
+        return Base64Compat.encodeToString(enclaveB64Value, Base64Compat.NO_WRAP);
     }
 
     public byte[] raw() {
