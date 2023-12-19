@@ -18,3 +18,5 @@ artifacts { testArtifacts testsJar }
 
 tasks.named("spotlessJava").configure { dependsOn("spotlessGroovyGradle","compileJava","compileTestJava","javadoc","processTestResources","test") }
 tasks.named("spotlessKotlin").configure { dependsOn("compileJava","spotlessJava", "spotlessGroovyGradle","compileTestJava","processTestResources","javadoc","test") }
+
+useReducedJdk(project)
