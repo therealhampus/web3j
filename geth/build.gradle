@@ -8,3 +8,5 @@ dependencies {
 
 tasks.named("spotlessJava").configure { dependsOn("spotlessGroovyGradle","compileJava","compileTestJava","javadoc","test") }
 tasks.named("spotlessKotlin").configure { dependsOn("compileJava","spotlessJava", "spotlessGroovyGradle","compileTestJava","processTestResources","javadoc","test") }
+
+useReducedJdk(project)
